@@ -1,0 +1,95 @@
+---
+version: '2'
+services:
+  redis:
+    image: redis
+    restart: unless-stopped
+    ports:
+      - '6379'
+  dkron-3-2-6:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-6
+    ports:
+      - "8080:8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --log-level=debug --bootstrap-expect=1
+  dkron-3-2-6-server:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-6
+    ports:
+      - "8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --retry-join=dkron-3-2-6:8946 --log-level=debug --bootstrap-expect=3
+  dkron-3-2-6-agent:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-6
+    ports:
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --retry-join=dkron-3-2-6:8946 --log-level=debug --tag agent=true
+  dkron-3-2-7:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-7
+    ports:
+      - "8081:8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --log-level=debug --bootstrap-expect=1
+  dkron-3-2-7-server:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-7
+    ports:
+      - "8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --retry-join=dkron-3-2-7:8946 --log-level=debug --bootstrap-expect=3
+  dkron-3-2-7-agent:
+    build:
+      dockerfile: Dockerfile.dkron-3-2-7
+    ports:
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --retry-join=dkron-3-2-7:8946 --log-level=debug --tag agent=true
+  dkron-4-0-2:
+    build:
+      dockerfile: Dockerfile.dkron-4-0-2
+    ports:
+      - "8082:8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --log-level=debug --bootstrap-expect=1
+  dkron-4-0-2-server:
+    build:
+      dockerfile: Dockerfile.dkron-4-0-2
+    ports:
+      - "8080"
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --server --retry-join=dkron-4-0-2:8946 --log-level=debug --bootstrap-expect=3
+  dkron-4-0-2-agent:
+    build:
+      dockerfile: Dockerfile.dkron-4-0-2
+    ports:
+      - "8946"
+      - "6868"
+    environment:
+      - GODEBUG=netdns=go
+    command: agent --retry-join=dkron-4-0-2:8946 --log-level=debug --tag agent=true
