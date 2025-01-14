@@ -13,9 +13,9 @@ Steps to reproduce:
    to create test jobs in each DKRON cluster.
 4. Wait about 15 minutes.
 5. Check the busy tab for each DKRON version:
-  1. <http://localhost:8080/ui/#/busy> (DKRON 3.2.6)
-  2. <http://localhost:8081/ui/#/busy> (DKRON 3.2.7)
-  3. <http://localhost:8082/ui/#/busy> (DKRON 4.0.2)
+    1. <http://localhost:8080/ui/#/busy> (DKRON 3.2.6)
+    2. <http://localhost:8081/ui/#/busy> (DKRON 3.2.7)
+    3. <http://localhost:8082/ui/#/busy> (DKRON 4.0.2)
 
 Expected result
 ---------------
@@ -25,6 +25,6 @@ All DKRON UIs show no busy jobs older than 10 seconds.
 Actual result
 -------------
 
-DKRON 3.2.6 shows no busy jobs older than 10 seconds.  New DKRON versions
-show multiple "stuck" jobs.
+DKRON 3.2.6 shows no busy jobs older than 10 seconds.  DKRON versions
+newer than 3.2.6 show multiple "stuck" jobs.
 
